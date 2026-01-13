@@ -46,9 +46,9 @@
     <label>Número de Socio</label>
     <input type="number" id="login-socio" placeholder="Ej: 1234">
     
-    <label>Fecha de Nacimiento (DD/MM/AAAA)</label>
-    <input type="text" id="login-fecha" placeholder="Ej: 01/01/1990" maxlength="10">
-    <small style="color:#666;">Importante: Use 2 dígitos para día y mes (01, no 1).</small>
+<label>Fecha de Nacimiento (DD/MM/AAAA)</label>
+<input type="text" id="login-fecha" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric">
+<small style="color:#666;">Formato automático: solo ingrese números.</small>
     
     <button onclick="validarUsuario()">Ingresar</button>
     <br><br>
@@ -136,12 +136,37 @@
 </div>
 
 <script>
+  // --- MÁSCARA DE FECHA AUTOMÁTICA ---
+  document.addEventListener("DOMContentLoaded", function() {
+    const inputFecha = document.getElementById('login-fecha');
+    
+    inputFecha.addEventListener('input', function(e) {
+      // 1. Eliminar cualquier caracter que no sea número
+      let valor = this.value.replace(/\D/g, '');
+      
+      // 2. Limitar a 8 dígitos (DDMMAAAA)
+      if (valor.length > 8) valor = valor.substring(0, 8);
+      
+      // 3. Formatear agregando las barras
+      let formateado = "";
+      if (valor.length > 4) {
+        formateado = valor.substring(0, 2) + '/' + valor.substring(2, 4) + '/' + valor.substring(4);
+      } else if (valor.length > 2) {
+        formateado = valor.substring(0, 2) + '/' + valor.substring(2);
+      } else {
+        formateado = valor;
+      }
+      
+      // 4. Asignar el valor formateado
+      this.value = formateado;
+    });
+  });
   // ==========================================================================
   // CONFIGURACIÓN DE CONEXIÓN
   // ==========================================================================
   
   // PEGA TU URL DE APPS SCRIPT AQUÍ ABAJO (Debe terminar en /exec)
-  const API_URL = "PEGAR_AQUI_TU_URL_LARGUISIMA_QUE_TERMINA_EN_EXEC"; 
+  const API_URL = "https://script.google.com/macros/s/AKfycbxaAz1Z1PKwIyiyDV_WCT1qhHC_ALdsgpqH0U0Xf1oeWFHYHISjK5unJtyCtSYISMu7/exec"; 
 
   // ==========================================================================
 
@@ -154,7 +179,7 @@
 
   // --- FUNCIÓN GENÉRICA PARA CONECTAR CON APPS SCRIPT ---
   async function llamarAPI(accion, datos = {}) {
-    if (API_URL.includes("https://script.google.com/macros/s/AKfycbxaAz1Z1PKwIyiyDV_WCT1qhHC_ALdsgpqH0U0Xf1oeWFHYHISjK5unJtyCtSYISMu7/exec")) {
+    if (API_URL.includes("PEGAR_AQUI")) {
       alert("Error de configuración: No has puesto la URL del Script en el código HTML.");
       return null;
     }
