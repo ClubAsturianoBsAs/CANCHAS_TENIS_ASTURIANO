@@ -6,31 +6,557 @@
   <title>Reserva de Tenis</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Roboto', sans-serif; background-color: #f4f4f9; padding: 20px; color: #333; margin: 0; }
-    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    h1, h2, h4 { text-align: center; color: #2c3e50; }
-    .hidden { display: none !important; }
+    /* ==================== RESET Y BASE ==================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2ecc71;
+      --primary-dark: #27ae60;
+      --primary-light: #a8e6cf;
+      --secondary: #3498db;
+      --secondary-dark: #2980b9;
+      --danger: #e74c3c;
+      --warning: #f39c12;
+      --dark: #2c3e50;
+      --dark-light: #34495e;
+      --gray: #7f8c8d;
+      --gray-light: #bdc3c7;
+      --gray-lighter: #ecf0f1;
+      --white: #ffffff;
+      --success-bg: #d5f4e6;
+      --success-border: #27ae60;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ==================== CONTAINER ==================== */
+    body > div:not(#loading) {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: clamp(20px, 5vw, 40px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==================== TYPOGRAPHY ==================== */
+    h1, h2, h4 {
+      text-align: center;
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      color: var(--dark);
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      color: var(--dark-light);
+      margin: 1rem 0 0.75rem;
+    }
+
+    p {
+      margin: 0.75rem 0;
+    }
+
+    /* ==================== UTILITY CLASSES ==================== */
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==================== FORMS ==================== */
+    label {
+      display: block;
+      margin-top: 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--dark-light);
+      margin-bottom: 0.5rem;
+    }
+
+    label:first-of-type {
+      margin-top: 1.5rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      margin-top: 0;
+      border: 2px solid var(--gray-lighter);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--white);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+    }
+
+    input:hover, select:hover {
+      border-color: var(--gray-light);
+    }
+
+    input::placeholder {
+      color: var(--gray-light);
+    }
+
+    small {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    small[style*="color:#e74c3c"], small[style*="color: #e74c3c"] {
+      color: var(--danger) !important;
+      font-weight: 500;
+    }
+
+    /* ==================== BUTTONS ==================== */
+    button {
+      width: 100%;
+      padding: 14px 24px;
+      margin-top: 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:not(.secondary) {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+    }
+
+    button:not(.secondary):hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    button:not(.secondary):active {
+      transform: translateY(0);
+    }
+
+    button.secondary {
+      background: linear-gradient(135deg, var(--gray) 0%, var(--dark-light) 100%);
+      color: var(--white);
+    }
+
+    button.secondary:hover {
+      background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Botón de cobrar en tabla admin */
+    #admin-table button {
+      background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+      width: 100%;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    #admin-table button:hover {
+      background: linear-gradient(135deg, #d35400 0%, #c0392b 100%);
+    }
+
+    /* ==================== PRICE DISPLAY ==================== */
+    div[class="price-display"], #precio-total {
+      background: linear-gradient(135deg, var(--success-bg) 0%, #e8f8f5 100%);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      border: 2px solid var(--success-border);
+      color: var(--primary-dark);
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: var(--shadow-sm);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+      }
+    }
+
+    /* ==================== TABLES ==================== */
+    div[class="table-responsive"] {
+      overflow-x: auto;
+      margin-top: 1.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-lighter);
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      color: var(--white);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    th:first-child {
+      border-top-left-radius: 8px;
+    }
+
+    th:last-child {
+      border-top-right-radius: 8px;
+    }
+
+    tbody tr {
+      transition: var(--transition);
+    }
+
+    tbody tr:hover {
+      background: var(--gray-lighter);
+      transform: scale(1.01);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td[class*="status"] {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .status-pagado, td[class="status-pagado"] {
+      color: var(--primary) !important;
+    }
+
+    .status-pendiente, td[class="status-pendiente"] {
+      color: var(--warning) !important;
+    }
+
+    /* ==================== LOADING OVERLAY ==================== */
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    #loading::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      border: 5px solid var(--gray-lighter);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==================== SPECIFIC SECTIONS ==================== */
     
-    /* Form Styles */
-    label { display: block; margin-top: 15px; font-weight: bold; font-size: 0.9em; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
-    button { background-color: #27ae60; color: white; border: none; cursor: pointer; margin-top: 20px; font-weight: bold; transition: background 0.3s; }
-    button:hover { background-color: #219150; }
-    button.secondary { background-color: #7f8c8d; }
-    button.secondary:hover { background-color: #616a6b; }
-    
-    .price-display { background: #e8f8f5; padding: 15px; border-radius: 5px; margin-top: 20px; text-align: center; font-size: 1.2em; border: 1px solid #27ae60; color: #1e8449; font-weight: bold; }
-    
-    /* Admin Table */
-    .table-responsive { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85em; }
-    th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-    th { background-color: #2c3e50; color: white; }
-    .status-pagado { color: green; font-weight: bold; }
-    .status-pendiente { color: orange; font-weight: bold; }
-    
-    /* Loading Overlay */
-    #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 999; display: flex; justify-content: center; align-items: center; font-size: 1.5em; color: #2c3e50; }
+    /* Login view */
+    #view-login p[style*="text-align:center"] {
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    #view-login > div[style*="text-align:center"] {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--gray-lighter);
+    }
+
+    #view-login a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    #view-login a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Booking view */
+    #config-area > div[style*="display:flex"] {
+      display: flex !important;
+      gap: 15px !important;
+      margin-bottom: 1rem;
+    }
+
+    #config-area > div[style*="display:flex"] > div {
+      flex: 1 !important;
+    }
+
+    /* Jugadores container */
+    #jugadores-container, div[id="jugadores-container"] {
+      margin-top: 1.5rem !important;
+      border: 2px solid var(--gray-lighter) !important;
+      padding: 20px !important;
+      border-radius: 10px !important;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    }
+
+    #jugadores-container > div[style*="margin-bottom:5px"] {
+      margin-bottom: 10px !important;
+      padding: 12px !important;
+      background: var(--primary-light) !important;
+      border-radius: 8px !important;
+      font-weight: 500;
+    }
+
+    #jugadores-container > div[style*="margin-bottom:10px"] {
+      margin-bottom: 15px !important;
+      background: var(--white) !important;
+      padding: 15px !important;
+      border-bottom: 2px solid var(--gray-lighter) !important;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    #jugadores-container > div[style*="margin-bottom:10px"]:hover {
+      box-shadow: var(--shadow-sm);
+      transform: translateX(5px);
+    }
+
+    #jugadores-container > div[style*="margin-bottom:10px"]:last-child {
+      border-bottom: none !important;
+    }
+
+    #jugadores-container div[style*="display:flex"] {
+      display: flex !important;
+      gap: 10px !important;
+      align-items: flex-end;
+    }
+
+    #jugadores-container select[class="tipo-jugador"] {
+      width: 40% !important;
+    }
+
+    #jugadores-container input[class="dato-jugador"] {
+      width: 60% !important;
+      margin-top: 0 !important;
+    }
+
+    /* Success view */
+    #view-success h2[style*="color:green"] {
+      color: var(--primary) !important;
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    #resumen-final, div[id="resumen-final"] {
+      background: var(--success-bg) !important;
+      padding: 20px !important;
+      border-radius: 10px !important;
+      border: 2px solid var(--success-border) !important;
+      margin: 1.5rem 0;
+    }
+
+    #resumen-final p {
+      margin: 0.75rem 0;
+      font-size: 1rem;
+    }
+
+    #resumen-final strong {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* Admin table actions */
+    #admin-table td > div[style*="display:flex"] {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 5px !important;
+    }
+
+    #admin-table select {
+      font-size: 0.85rem !important;
+      padding: 6px 8px !important;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      #config-area > div[style*="display:flex"] {
+        flex-direction: column !important;
+        gap: 0 !important;
+      }
+
+      table {
+        font-size: 0.8rem;
+      }
+
+      th, td {
+        padding: 10px 8px;
+      }
+
+      button {
+        padding: 12px 20px;
+      }
+
+      div[class="price-display"], #precio-total {
+        font-size: 1.25rem;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body > div:not(#loading) {
+        padding: 20px 15px;
+      }
+
+      input, select, button {
+        font-size: 0.95rem;
+      }
+
+      #jugadores-container div[style*="display:flex"] {
+        flex-direction: column !important;
+      }
+
+      #jugadores-container select[class="tipo-jugador"],
+      #jugadores-container input[class="dato-jugador"] {
+        width: 100% !important;
+      }
+    }
+
+    /* ==================== PRINT STYLES ==================== */
+    @media print {
+      body {
+        background: white;
+      }
+
+      button, #view-login, #view-admin {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -319,180 +845,3 @@
          let opt = document.createElement('option');
          opt.text = "Sin disponibilidad";
          selectCancha.appendChild(opt);
-         document.getElementById('msg-disponibilidad').innerText = "No hay canchas libres en este horario.";
-       }
-    }
-  }
-
-  function generarCamposJugadores() {
-    const tipo = document.getElementById('reserva-tipo').value;
-    const container = document.getElementById('jugadores-container');
-    container.innerHTML = "<h4>Jugadores</h4>";
-    
-    // Jugador 1 es fijo (Usuario logueado)
-    container.innerHTML += `<div style="margin-bottom:5px; padding:5px; background:#e8f6f3;">Jugador 1 (Titular): <b>${usuarioActual.nombre} (Socio)</b></div>`;
-    
-    let totalJugadores = (tipo === 'single') ? 2 : 4;
-    
-    for(let i=2; i<=totalJugadores; i++) {
-      let html = `
-        <div style="margin-bottom:10px; background:#f9f9f9; padding:10px; border-bottom:1px solid #eee;">
-          <label style="margin-top:0;">Jugador ${i}:</label>
-          <div style="display:flex; gap:5px;">
-             <select class="tipo-jugador" onchange="calcularPrecio()" style="width:40%;">
-                <option value="socio">Socio</option>
-                <option value="nosocio">NO Socio</option>
-             </select>
-             <input type="text" class="dato-jugador" placeholder="N° Socio o Nombre/DNI" style="width:60%; margin-top:5px;">
-          </div>
-        </div>`;
-      container.innerHTML += html;
-    }
-  }
-
-  function calcularPrecio() {
-    const hora = parseInt(document.getElementById('reserva-hora').value);
-    const duracion = parseInt(document.getElementById('reserva-duracion').value);
-    
-    // Regla de precios: < 18hs (Base), >= 18hs (Pico)
-    let tarifaSocio = (hora < 18) ? precioBaseSocio : precioPicoSocio;
-    let tarifaNoSocio = (hora < 18) ? precioBaseNoSocio : precioPicoNoSocio;
-    
-    let total = 0;
-    
-    // Sumar titular (Socio)
-    total += tarifaSocio * duracion;
-    
-    // Sumar resto de jugadores dinámicos
-    const selects = document.getElementsByClassName('tipo-jugador');
-    for(let sel of selects) {
-      if(sel.value === 'socio') {
-        total += tarifaSocio * duracion;
-      } else {
-        total += tarifaNoSocio * duracion;
-      }
-    }
-    
-    document.getElementById('precio-total').innerText = "Total a Pagar: $" + total;
-    return total;
-  }
-
-  async function enviarReserva() {
-    const cancha = document.getElementById('reserva-cancha').value;
-    if(!cancha || isNaN(cancha)) return alert("Debe seleccionar una cancha válida.");
-    
-    // Recopilar detalle jugadores
-    let detalle = usuarioActual.id + " (Titular)";
-    const inputs = document.getElementsByClassName('dato-jugador');
-    for(let inp of inputs) {
-      if(!inp.value) return alert("Por favor complete los nombres o datos de todos los jugadores.");
-      detalle += ", " + inp.value;
-    }
-    
-    const datosReserva = {
-      fecha: document.getElementById('reserva-fecha').value,
-      hora: document.getElementById('reserva-hora').value,
-      duracion: document.getElementById('reserva-duracion').value,
-      tipo: document.getElementById('reserva-tipo').value,
-      cancha: cancha,
-      socioTitular: usuarioActual.id,
-      detalleJugadores: detalle,
-      total: calcularPrecio()
-    };
-    
-    const res = await llamarAPI('guardarReserva', { datos: datosReserva });
-    
-    if(res && res.success) {
-        document.getElementById('view-booking').classList.add('hidden');
-        document.getElementById('view-success').classList.remove('hidden');
-        document.getElementById('resumen-final').innerHTML = `
-          <p><strong>Fecha:</strong> ${datosReserva.fecha}</p>
-          <p><strong>Hora:</strong> ${datosReserva.hora}:00 hs (Duración: ${datosReserva.duracion}h)</p>
-          <p><strong>Cancha:</strong> ${datosReserva.cancha}</p>
-          <p><strong>Total:</strong> $${datosReserva.total}</p>
-          <p><strong>Jugadores:</strong> ${datosReserva.detalleJugadores}</p>
-        `;
-    } else {
-        alert("No se pudo realizar la reserva: " + (res ? res.message : "Error desconocido"));
-        cargarCanchas(); // Refrescar disponibilidad
-    }
-  }
-
-  // --- LOGICA ADMIN ---
-  function showAdminLogin() {
-    let pass = prompt("Ingrese contraseña de administrador:");
-    if(pass === "admin123") { 
-      document.getElementById('view-login').classList.add('hidden');
-      document.getElementById('view-admin').classList.remove('hidden');
-      cargarTablaAdmin();
-    } else {
-      alert("Contraseña incorrecta");
-    }
-  }
-
-  async function cargarTablaAdmin() {
-    const reservas = await llamarAPI('obtenerReservasAdmin');
-    
-    if(reservas) {
-      const tbody = document.querySelector('#admin-table tbody');
-      tbody.innerHTML = "";
-      
-      // Ordenar por fecha (más reciente arriba - opcional, aquí muestra tal cual viene de la hoja)
-      // La API devuelve array de arrays. Índices: 1:Fecha, 2:Hora, 4:Cancha, 6:Titular, 8:Total, 9:Estado, 10:Cobrador
-      
-      reservas.forEach((r, index) => {
-        let estado = r[9];
-        let colorClass = estado === 'Pagado' ? 'status-pagado' : 'status-pendiente';
-        
-        let acciones = "";
-        if(estado !== 'Pagado') {
-          acciones = `
-            <div style="display:flex; flex-direction:column; gap:2px;">
-              <select id="cobrador-${index}" style="font-size:0.8em; padding:2px;">
-                 <option value="Persona 1">Persona 1</option>
-                 <option value="Persona 2">Persona 2</option>
-                 <option value="Persona 3">Persona 3</option>
-                 <option value="Persona 4">Persona 4</option>
-                 <option value="Franquero">Franquero</option>
-              </select>
-              <button onclick="cobrar(${index})" style="margin-top:2px; font-size:0.8em; padding:5px; background-color:#e67e22;">Cobrar</button>
-            </div>
-          `;
-        } else {
-           acciones = `<small>Cobrado por:<br>${r[10]}</small>`;
-        }
-
-        let row = `
-          <tr>
-            <td>${r[1]}<br><b>${r[2]}:00 hs</b></td>
-            <td style="text-align:center;">${r[4]}</td>
-            <td>${r[6]}</td>
-            <td>$${r[8]}</td>
-            <td class="${colorClass}">${estado}</td>
-            <td>${acciones}</td>
-          </tr>
-        `;
-        tbody.innerHTML += row;
-      });
-      
-      if(reservas.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='6' style='text-align:center'>No hay reservas registradas.</td></tr>";
-      }
-    }
-  }
-
-  async function cobrar(index) {
-    if(!confirm("¿Confirmar el pago de esta reserva?")) return;
-    
-    const cobrador = document.getElementById(`cobrador-${index}`).value;
-    const res = await llamarAPI('actualizarPago', { index: index, cobrador: cobrador });
-    
-    if(res && res.success) {
-      alert("Pago registrado correctamente");
-      cargarTablaAdmin();
-    }
-  }
-</script>
-
-</body>
-</html>
