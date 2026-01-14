@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reserva de Tenis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     /* ==================== RESET Y BASE ==================== */
     * {
@@ -15,449 +15,249 @@
 
     :root {
       --primary: #2EAA5C;
-      --primary-dark: #268B4A;
+      --primary-dark: #239B4E;
       --primary-light: #E8F5EF;
-      --secondary: #1E88E5;
-      --secondary-dark: #1565C0;
-      --danger: #D32F2F;
-      --warning: #F57C00;
       --dark: #1A1A1A;
-      --dark-light: #2D2D2D;
+      --dark-light: #333333;
       --gray: #666666;
-      --gray-light: #CCCCCC;
+      --gray-light: #999999;
       --gray-lighter: #F5F5F5;
       --white: #ffffff;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
-      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-      --shadow-hero: 0 20px 60px rgba(0,0,0,0.3);
-      --border-radius: 16px;
-      --border-radius-sm: 10px;
-      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.15);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.2);
+      --border-radius: 4px;
+      --transition: all 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--white);
       min-height: 100vh;
       color: var(--dark);
       line-height: 1.6;
-      position: relative;
       overflow-x: hidden;
     }
 
+    /* ==================== HEADER ==================== */
     body::before {
       content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/></svg>') repeat;
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ==================== HERO CONTAINER ==================== */
-    body > div:not(#loading) {
-      max-width: 1200px;
-      margin: 40px auto;
+      display: block;
+      height: 80px;
       background: var(--white);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-hero);
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-      animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.92) translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+    /* ==================== MAIN CONTAINER ==================== */
+    body > div:not(#loading) {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      background: transparent;
     }
 
     /* ==================== HERO SECTION ==================== */
-    body > div:not(#loading)::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 320px;
-      background: 
-        linear-gradient(135deg, rgba(46, 170, 92, 0.95) 0%, rgba(30, 136, 229, 0.9) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320"><defs><pattern id="tennis" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="35" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/><line x1="20" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="2"/></pattern></defs><rect width="1200" height="320" fill="url(%23tennis)"/></svg>');
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
-    }
-
-    body > div:not(#loading)::after {
-      content: '';
-      position: absolute;
-      top: 320px;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ==================== CONTENT WRAPPER ==================== */
     #view-login,
-    #view-booking,
-    #view-success,
-    #view-admin {
-      padding: 360px 60px 60px 60px;
+    #view-booking {
       position: relative;
-      z-index: 1;
+      min-height: 600px;
+      padding: 0;
+      background: 
+        linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%),
+        url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-left: 60px;
+      padding-right: 450px;
+      padding-top: 60px;
+      padding-bottom: 60px;
     }
 
     /* ==================== TYPOGRAPHY ==================== */
     h1 {
-      font-size: clamp(2.25rem, 5vw, 3.5rem);
-      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 300;
       color: var(--white);
-      text-align: center;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.5px;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      position: absolute;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      animation: slideDown 0.6s ease-out 0.2s both;
+      text-align: left;
+      margin-bottom: 1rem;
+      letter-spacing: 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      position: relative;
+      transform: none;
+      left: auto;
+      top: auto;
+      width: auto;
+      animation: fadeInUp 0.8s ease-out;
     }
 
-    @keyframes slideDown {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-30px);
+        transform: translateY(20px);
       }
       to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
       }
     }
 
     h2 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 700;
-      color: var(--white);
-      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--dark);
+      text-align: left;
       margin-bottom: 1.5rem;
-      position: absolute;
-      top: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      width: auto;
     }
 
     h4 {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--dark);
-      margin: 2rem 0 1rem;
-      padding-left: 12px;
-      border-left: 4px solid var(--primary);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    /* Párrafo hero */
+    #view-login > p:first-of-type {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: auto;
+      max-width: 500px;
+      color: rgba(255,255,255,0.95) !important;
+      font-size: 1.1rem;
+      font-weight: 400;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
     p {
-      margin: 1rem 0;
+      margin: 0.75rem 0;
       color: var(--gray);
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
-    /* Párrafo debajo del título */
-    #view-login > p:first-of-type {
+    /* ==================== BOOKING FORM CARD ==================== */
+    #view-login > label:first-of-type,
+    #view-login > label,
+    #view-login > input,
+    #view-login > small,
+    #view-login > button:not([style*="display:flex"] button) {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Crear una card verde para el formulario */
+    #view-login::after {
+      content: '';
       position: absolute;
-      top: 200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      color: rgba(255,255,255,0.95) !important;
-      font-size: 1.15rem;
-      font-weight: 400;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      animation: slideDown 0.6s ease-out 0.4s both;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 320px;
+      height: auto;
+      min-height: 350px;
+      background: var(--primary);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 5;
     }
 
     /* ==================== FORMS ==================== */
     label {
       display: block;
-      margin-top: 1.5rem;
-      margin-bottom: 0.6rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
       font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--dark);
+      font-size: 0.9rem;
+      color: var(--white);
       letter-spacing: 0.3px;
-    }
-
-    label:first-of-type {
-      margin-top: 0;
     }
 
     input,
     select {
       width: 100%;
-      padding: 14px 18px;
-      border: 2px solid var(--gray-lighter);
-      border-radius: var(--border-radius-sm);
+      padding: 14px 16px;
+      border: none;
+      border-radius: var(--border-radius);
       font-size: 1rem;
       font-family: inherit;
       transition: var(--transition);
       background: var(--white);
       color: var(--dark);
       font-weight: 400;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
     }
 
     input:focus,
     select:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--primary-light);
-      transform: translateY(-2px);
-    }
-
-    input:hover,
-    select:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3), inset 0 1px 3px rgba(0,0,0,0.08);
     }
 
     input::placeholder {
       color: var(--gray-light);
-      font-weight: 300;
+      font-weight: 400;
     }
 
     small {
       display: block;
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--gray);
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.8);
       font-weight: 400;
-    }
-
-    small[style*="color:#e74c3c"],
-    small[style*="color: #e74c3c"],
-    small[style*="color:red"] {
-      color: var(--danger) !important;
-      font-weight: 500;
-      background: #FFEBEE;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border-left: 3px solid var(--danger);
     }
 
     /* ==================== BUTTONS ==================== */
     button {
       width: 100%;
-      padding: 16px 32px;
-      margin-top: 2rem;
+      padding: 14px 28px;
+      margin-top: 1.5rem;
       border: none;
-      border-radius: var(--border-radius-sm);
-      font-size: 1.05rem;
+      border-radius: var(--border-radius);
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       transition: var(--transition);
       text-transform: uppercase;
-      letter-spacing: 1px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    button:hover::before {
-      width: 400px;
-      height: 400px;
-    }
-
-    button:not(.secondary) {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      letter-spacing: 1.5px;
+      background: var(--dark);
       color: var(--white);
-      box-shadow: 0 6px 20px rgba(46, 170, 92, 0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    button:not(.secondary):hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(46, 170, 92, 0.4);
+    button:hover {
+      background: var(--dark-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
-    button:not(.secondary):active {
-      transform: translateY(-1px);
+    button:active {
+      transform: translateY(0);
     }
 
     button.secondary {
-      background: linear-gradient(135deg, var(--gray) 0%, var(--dark-light) 100%);
+      background: transparent;
       color: var(--white);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      border: 2px solid var(--white);
+      box-shadow: none;
     }
 
     button.secondary:hover {
-      background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Botón cobrar en admin */
-    #admin-table button {
-      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-      padding: 8px 12px;
-      font-size: 0.8rem;
-      margin-top: 6px;
-      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-    }
-
-    #admin-table button:hover {
-      background: linear-gradient(135deg, #F7931E 0%, #FF6B35 100%);
-      box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
-    }
-
-    /* ==================== PRICE DISPLAY ==================== */
-    div[class="price-display"],
-    #precio-total {
-      background: linear-gradient(135deg, var(--primary-light) 0%, #F0FFF4 100%);
-      padding: 28px;
-      border-radius: var(--border-radius);
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 2rem;
-      border: 3px solid var(--primary);
-      color: var(--primary-dark);
-      font-weight: 800;
-      box-shadow: 0 8px 24px rgba(46, 170, 92, 0.2);
-      position: relative;
-      overflow: hidden;
-      animation: priceGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes priceGlow {
-      0%, 100% {
-        box-shadow: 0 8px 24px rgba(46, 170, 92, 0.2);
-      }
-      50% {
-        box-shadow: 0 8px 32px rgba(46, 170, 92, 0.4), 0 0 40px rgba(46, 170, 92, 0.2);
-      }
-    }
-
-    div[class="price-display"]::before,
-    #precio-total::before {
-      content: '💰';
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 2.5rem;
-      opacity: 0.3;
-    }
-
-    /* ==================== TABLES ==================== */
-    div[class="table-responsive"] {
-      overflow-x: auto;
-      margin-top: 2rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-md);
       background: var(--white);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: 0.95rem;
-    }
-
-    th,
-    td {
-      padding: 16px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--gray-lighter);
-    }
-
-    th {
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
-      color: var(--white);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    th:first-child {
-      border-top-left-radius: var(--border-radius);
-    }
-
-    th:last-child {
-      border-top-right-radius: var(--border-radius);
-    }
-
-    tbody tr {
-      transition: var(--transition);
-      background: var(--white);
-    }
-
-    tbody tr:hover {
-      background: var(--gray-lighter);
-      transform: scale(1.01);
-      box-shadow: var(--shadow-sm);
-    }
-
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: var(--border-radius);
-    }
-
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: var(--border-radius);
-    }
-
-    td[class*="status"] {
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      padding: 6px 12px;
-      border-radius: 20px;
-      display: inline-block;
-    }
-
-    .status-pagado,
-    td[class="status-pagado"] {
-      color: var(--primary) !important;
-      background: var(--primary-light);
-    }
-
-    .status-pendiente,
-    td[class="status-pendiente"] {
-      color: var(--warning) !important;
-      background: #FFF3E0;
+      color: var(--dark);
     }
 
     /* ==================== LOADING OVERLAY ==================== */
@@ -467,24 +267,23 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(26, 26, 26, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(46, 170, 92, 0.95);
       z-index: 9999;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       color: var(--white);
-      font-weight: 700;
+      font-weight: 600;
     }
 
     #loading::after {
       content: '';
-      width: 60px;
-      height: 60px;
-      border: 6px solid rgba(255,255,255,0.1);
-      border-top-color: var(--primary);
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: var(--white);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin-top: 20px;
@@ -499,296 +298,116 @@
       display: none !important;
     }
 
-    /* ==================== SPECIFIC SECTIONS ==================== */
-
-    /* Login footer */
-    #view-login > div[style*="text-align:center"]:last-child {
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 2px solid var(--gray-lighter);
-    }
-
+    /* ==================== LINKS ==================== */
     #view-login a {
-      color: var(--primary);
+      color: rgba(255,255,255,0.9);
       text-decoration: none;
       transition: var(--transition);
-      font-size: 0.95rem;
-      font-weight: 600;
-      position: relative;
-    }
-
-    #view-login a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s;
-    }
-
-    #view-login a:hover::after {
-      width: 100%;
-    }
-
-    /* Config area flex */
-    #config-area > div[style*="display:flex"] {
-      display: flex !important;
-      gap: 20px !important;
-      margin-bottom: 0;
-    }
-
-    #config-area > div[style*="display:flex"] > div {
-      flex: 1 !important;
-    }
-
-    /* Jugadores container */
-    #jugadores-container,
-    div[id="jugadores-container"] {
-      margin-top: 2rem !important;
-      border: 3px solid var(--primary-light) !important;
-      padding: 24px !important;
-      border-radius: var(--border-radius) !important;
-      background: linear-gradient(135deg, #F8FFFE 0%, var(--white) 100%) !important;
-      box-shadow: var(--shadow-sm);
-    }
-
-    #jugadores-container > div[style*="margin-bottom:5px"] {
-      margin-bottom: 12px !important;
-      padding: 14px 18px !important;
-      background: var(--primary) !important;
-      color: var(--white) !important;
-      border-radius: var(--border-radius-sm) !important;
-      font-weight: 700 !important;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
       font-size: 0.9rem;
     }
 
-    #jugadores-container > div[style*="margin-bottom:10px"] {
-      margin-bottom: 18px !important;
-      background: var(--white) !important;
-      padding: 18px !important;
-      border-bottom: 2px solid var(--gray-lighter) !important;
-      border-radius: var(--border-radius-sm) !important;
-      transition: var(--transition);
-      box-shadow: var(--shadow-sm);
+    #view-login a:hover {
+      color: var(--white);
+      text-decoration: underline;
     }
 
-    #jugadores-container > div[style*="margin-bottom:10px"]:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateX(8px);
-      border-bottom-color: var(--primary) !important;
+    #view-login > div[style*="text-align:center"]:last-child {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
     }
 
-    #jugadores-container > div[style*="margin-bottom:10px"]:last-child {
-      border-bottom: none !important;
+    /* ==================== SUCCESS & ADMIN VIEWS ==================== */
+    #view-success,
+    #view-admin {
+      background: var(--white);
+      padding: 60px;
+      min-height: auto;
     }
 
-    #jugadores-container div[style*="display:flex"] {
-      display: flex !important;
-      gap: 12px !important;
-      align-items: flex-end;
-    }
-
-    #jugadores-container select[class="tipo-jugador"] {
-      width: 40% !important;
-    }
-
-    #jugadores-container input[class="dato-jugador"] {
-      width: 60% !important;
-      margin-top: 0 !important;
-    }
-
-    /* Success view */
-    #view-success h2[style*="color:green"],
-    #view-success h2[style*="color: green"] {
+    #view-success h2 {
       color: var(--primary) !important;
-      animation: successBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-      text-shadow: 0 4px 12px rgba(46, 170, 92, 0.3);
     }
 
-    @keyframes successBounce {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) scale(0.5) rotate(-10deg);
-      }
-      60% {
-        transform: translateX(-50%) scale(1.1) rotate(5deg);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1) rotate(0deg);
-      }
+    /* ==================== TABLES ==================== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
     }
 
-    #resumen-final,
-    div[id="resumen-final"] {
-      background: linear-gradient(135deg, var(--primary-light) 0%, #E8F8F3 100%) !important;
-      padding: 28px !important;
-      border-radius: var(--border-radius) !important;
-      border: 3px solid var(--primary) !important;
-      margin: 2rem 0 !important;
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-lighter);
     }
 
-    #resumen-final::before {
-      content: '✅';
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 3rem;
-      opacity: 0.2;
-    }
-
-    #resumen-final p {
-      margin: 0.75rem 0;
-      font-size: 1.05rem;
-      color: var(--dark);
-    }
-
-    #resumen-final strong {
-      color: var(--primary-dark);
+    th {
+      background: var(--primary);
+      color: var(--white);
       font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.8rem;
     }
 
-    /* Admin actions */
-    #admin-table td > div[style*="display:flex"] {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 6px !important;
-    }
-
-    #admin-table select {
-      font-size: 0.9rem !important;
-      padding: 8px 10px !important;
+    tbody tr:hover {
+      background: var(--gray-lighter);
     }
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
       #view-login,
-      #view-booking,
-      #view-success,
-      #view-admin {
-        padding: 360px 40px 40px 40px;
+      #view-booking {
+        padding: 40px;
+        align-items: center;
+        text-align: center;
+      }
+
+      #view-login > p:first-of-type {
+        text-align: center;
+      }
+
+      #view-login::after {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 350px;
       }
     }
 
     @media (max-width: 768px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      body > div:not(#loading) {
-        margin: 20px auto;
-      }
-
-      body > div:not(#loading)::before {
-        height: 280px;
+      body::before {
+        height: 60px;
       }
 
       #view-login,
-      #view-booking,
-      #view-success,
-      #view-admin {
-        padding: 320px 30px 30px 30px;
-      }
-
-      h1 {
-        font-size: 2rem;
-        top: 60px;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-        top: 100px;
-      }
-
-      #view-login > p:first-of-type {
-        top: 170px;
-        font-size: 1rem;
-      }
-
-      #config-area > div[style*="display:flex"] {
-        flex-direction: column !important;
-        gap: 0 !important;
-      }
-
-      table {
-        font-size: 0.85rem;
-      }
-
-      th,
-      td {
-        padding: 12px 10px;
-      }
-
-      div[class="price-display"],
-      #precio-total {
-        font-size: 1.5rem;
-        padding: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #view-login,
-      #view-booking,
-      #view-success,
-      #view-admin {
-        padding: 300px 20px 20px 20px;
+      #view-booking {
+        padding: 30px 20px;
+        min-height: auto;
       }
 
       h1 {
         font-size: 1.75rem;
-        top: 50px;
-      }
-
-      #view-login > p:first-of-type {
-        top: 150px;
-        font-size: 0.95rem;
-      }
-
-      input,
-      select,
-      button {
-        font-size: 0.95rem;
-        padding: 12px 14px;
-      }
-
-      #jugadores-container div[style*="display:flex"] {
-        flex-direction: column !important;
-      }
-
-      #jugadores-container select[class="tipo-jugador"],
-      #jugadores-container input[class="dato-jugador"] {
-        width: 100% !important;
-      }
-
-      div[class="price-display"],
-      #precio-total {
-        font-size: 1.25rem;
       }
     }
 
     /* ==================== PRINT ==================== */
     @media print {
-      body {
-        background: white;
-      }
-
-      body::before,
-      body > div::before,
-      body > div::after {
+      body::before {
         display: none;
       }
 
-      button,
-      #view-login,
-      #view-admin {
-        display: none !important;
+      #view-login {
+        background: none;
+        color: var(--dark);
+      }
+
+      button {
+        display: none;
       }
     }
   </style>
@@ -801,19 +420,19 @@
   
   <div id="view-login">
     <h1>🎾 Club de Tenis Premium</h1>
-    <p style="text-align:center;">Sistema de reservas online - Ingrese sus datos para continuar</p>
+    <p style="text-align:center;">Sistema de reservas online para canchas de tenis</p>
     
     <label>Número de Socio</label>
     <input type="number" id="login-socio" placeholder="Ej: 1234">
     
     <label>Fecha de Nacimiento (DD/MM/AAAA)</label>
     <input type="text" id="login-fecha" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric">
-    <small style="color:#666;">Formato automático: solo ingrese números.</small>
+    <small>Formato automático: solo ingrese números.</small>
     
     <button onclick="alert('Demo: Funcionalidad de login')">Ingresar al Sistema</button>
     
-    <div style="text-align:center; margin-top:20px; border-top:1px solid #eee; padding-top:10px;">
-      <small><a href="#" onclick="alert('Panel administrativo'); return false;" style="color:#999; text-decoration:none;">Acceso Administrador</a></small>
+    <div style="text-align:center; margin-top:20px; border-top:1px solid rgba(255,255,255,0.2); padding-top:10px;">
+      <small><a href="#" onclick="alert('Panel administrativo'); return false;">Acceso Administrador</a></small>
     </div>
   </div>
 
