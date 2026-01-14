@@ -6,410 +6,144 @@
   <title>Reserva de Tenis</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
-    /* ==================== RESET Y BASE ==================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+/* ==================== DISEÑO PREMIUM TENNIS ==================== */
+:root {
+  --primary: #003015; /* Verde Wimbledon */
+  --accent: #d2e603;  /* Amarillo pelota de tenis */
+  --bg-light: #fdfdfb;
+  --text-dark: #1a1a1a;
+  --shadow-lux: 0 10px 30px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
 
-    :root {
-      --primary: #2EAA5C;
-      --primary-dark: #239B4E;
-      --primary-light: #E8F5EF;
-      --dark: #1A1A1A;
-      --dark-light: #333333;
-      --gray: #666666;
-      --gray-light: #999999;
-      --gray-lighter: #F5F5F5;
-      --white: #ffffff;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.15);
-      --shadow-lg: 0 10px 40px rgba(0,0,0,0.2);
-      --border-radius: 4px;
-      --transition: all 0.3s ease;
-    }
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #f0f2f0;
+  background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* Contenedor Principal */
+.container {
+  width: 95%;
+  max-width: 500px;
+  background: var(--bg-light);
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lux);
+  border-top: 6px solid var(--primary);
+  margin: 20px auto;
+}
 
-    body {
-      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
-      min-height: 100vh;
-      color: var(--dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+/* Vistas */
+#view-login, #view-booking, #view-success, #view-admin {
+  animation: fadeIn 0.5s ease;
+}
 
-    /* ==================== HEADER ==================== */
-    body::before {
-      content: '';
-      display: block;
-      height: 80px;
-      background: var(--white);
-    }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ==================== MAIN CONTAINER ==================== */
-    body > div:not(#loading) {
-      position: relative;
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-      background: transparent;
-    }
+/* Títulos */
+h1, h2 {
+  color: var(--primary);
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 25px;
+}
 
-    /* ==================== HERO SECTION ==================== */
-    #view-login,
-    #view-booking {
-      position: relative;
-      min-height: 600px;
-      padding: 0;
-      background: 
-        linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%),
-        url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1600&q=80') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding-left: 60px;
-      padding-right: 450px;
-      padding-top: 60px;
-      padding-bottom: 60px;
-    }
+/* Inputs y Selects Mejorados */
+label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: var(--primary);
+  text-transform: uppercase;
+}
 
-    /* ==================== TYPOGRAPHY ==================== */
-    h1 {
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 300;
-      color: var(--white);
-      text-align: left;
-      margin-bottom: 1rem;
-      letter-spacing: 0;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      position: relative;
-      transform: none;
-      left: auto;
-      top: auto;
-      width: auto;
-      animation: fadeInUp 0.8s ease-out;
-    }
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0,48,21,0.05);
+}
 
-    h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 400;
-      color: var(--dark);
-      text-align: left;
-      margin-bottom: 1.5rem;
-      position: relative;
-      left: auto;
-      top: auto;
-      transform: none;
-      width: auto;
-    }
+/* Botones con Estilo Deportivo */
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+}
 
-    h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 1.5rem 0 0.75rem;
-    }
+button:hover {
+  background: #004d22;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,48,21,0.3);
+}
 
-    /* Párrafo hero */
-    #view-login > p:first-of-type {
-      position: relative;
-      top: auto;
-      left: auto;
-      transform: none;
-      width: auto;
-      max-width: 500px;
-      color: rgba(255,255,255,0.95) !important;
-      font-size: 1.1rem;
-      font-weight: 400;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-      margin-bottom: 2rem;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
+/* Área de Precio */
+.price-display {
+  background: var(--primary);
+  color: var(--accent);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 20px 0;
+}
 
-    p {
-      margin: 0.75rem 0;
-      color: var(--gray);
-      font-size: 0.95rem;
-    }
+/* Tablas Admin */
+.table-responsive { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+th {
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+}
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
 
-    /* ==================== BOOKING FORM CARD ==================== */
-    #view-login > label:first-of-type,
-    #view-login > label,
-    #view-login > input,
-    #view-login > small,
-    #view-login > button:not([style*="display:flex"] button) {
-      position: relative;
-      z-index: 10;
-    }
+/* Loading */
+#loading {
+  background: rgba(0,48,21,0.9);
+  color: var(--accent);
+}
 
-    /* Crear una card verde para el formulario */
-    #view-login::after {
-      content: '';
-      position: absolute;
-      right: 60px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 320px;
-      height: auto;
-      min-height: 350px;
-      background: var(--primary);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-lg);
-      z-index: 5;
-    }
-
-    /* ==================== FORMS ==================== */
-    label {
-      display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--white);
-      letter-spacing: 0.3px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 14px 16px;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      font-family: inherit;
-      transition: var(--transition);
-      background: var(--white);
-      color: var(--dark);
-      font-weight: 400;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.3), inset 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    input::placeholder {
-      color: var(--gray-light);
-      font-weight: 400;
-    }
-
-    small {
-      display: block;
-      margin-top: 0.25rem;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.8);
-      font-weight: 400;
-    }
-
-    /* ==================== BUTTONS ==================== */
-    button {
-      width: 100%;
-      padding: 14px 28px;
-      margin-top: 1.5rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      background: var(--dark);
-      color: var(--white);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-      background: var(--dark-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    }
-
-    button:active {
-      transform: translateY(0);
-    }
-
-    button.secondary {
-      background: transparent;
-      color: var(--white);
-      border: 2px solid var(--white);
-      box-shadow: none;
-    }
-
-    button.secondary:hover {
-      background: var(--white);
-      color: var(--dark);
-    }
-
-    /* ==================== LOADING OVERLAY ==================== */
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(46, 170, 92, 0.95);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.25rem;
-      color: var(--white);
-      font-weight: 600;
-    }
-
-    #loading::after {
-      content: '';
-      width: 50px;
-      height: 50px;
-      border: 4px solid rgba(255,255,255,0.2);
-      border-top-color: var(--white);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-top: 20px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ==================== UTILITY ==================== */
-    .hidden {
-      display: none !important;
-    }
-
-    /* ==================== LINKS ==================== */
-    #view-login a {
-      color: rgba(255,255,255,0.9);
-      text-decoration: none;
-      transition: var(--transition);
-      font-size: 0.9rem;
-    }
-
-    #view-login a:hover {
-      color: var(--white);
-      text-decoration: underline;
-    }
-
-    #view-login > div[style*="text-align:center"]:last-child {
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.2);
-    }
-
-    /* ==================== SUCCESS & ADMIN VIEWS ==================== */
-    #view-success,
-    #view-admin {
-      background: var(--white);
-      padding: 60px;
-      min-height: auto;
-    }
-
-    #view-success h2 {
-      color: var(--primary) !important;
-    }
-
-    /* ==================== TABLES ==================== */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 1.5rem;
-    }
-
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--gray-lighter);
-    }
-
-    th {
-      background: var(--primary);
-      color: var(--white);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-    }
-
-    tbody tr:hover {
-      background: var(--gray-lighter);
-    }
-
-    /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 1024px) {
-      #view-login,
-      #view-booking {
-        padding: 40px;
-        align-items: center;
-        text-align: center;
-      }
-
-      #view-login > p:first-of-type {
-        text-align: center;
-      }
-
-      #view-login::after {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      body::before {
-        height: 60px;
-      }
-
-      #view-login,
-      #view-booking {
-        padding: 30px 20px;
-        min-height: auto;
-      }
-
-      h1 {
-        font-size: 1.75rem;
-      }
-    }
-
-    /* ==================== PRINT ==================== */
-    @media print {
-      body::before {
-        display: none;
-      }
-
-      #view-login {
-        background: none;
-        color: var(--dark);
-      }
-
-      button {
-        display: none;
-      }
-    }
+.hidden { display: none !important; }
   </style>
 </head>
 <body>
