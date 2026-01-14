@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reserva de Tenis</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <style>
 <style>
 /* ==================== CONFIGURACIÓN DE FONDO Y LOGO ==================== */
 :root {
   --primary: #235d3a; /* Verde oscuro deportivo */
   --accent: #d2e603;
   --white: #ffffff;
-  /* CAMBIA ESTE LINK POR TU LOGO DE IMGBB */
-<img src="https://i.ibb.co/fzKg4fGZ/logo-2.jpg" alt="logo-2" border="0" class="max-w-[150px] h-auto transition duration-150 transform hover:scale-[1.03]">; 
+  /* Link directo de tu logo de ImgBB */
+  --logo-url: url('https://i.ibb.co/fzKg4fGZ/logo-2.jpg'); 
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Lato', sans-serif;
-  /* FONDO DE CANCHA */
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-<a href="https://ibb.co/vvQ3xJX8"><img src="https://i.ibb.co/qFWNMRJw/20241127095946-pelota.jpg" alt="20241127095946-pelota" border="0"></a><br /><a target='_blank' href='https://es.imgbb.com/'>subir imágenes de forma privada y segura</a><br />;
+  /* Tu fondo de pelota de tenis aplicado correctamente */
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+              url('https://i.ibb.co/qFWNMRJw/20241127095946-pelota.jpg') center/cover no-repeat fixed;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -32,46 +32,46 @@ body {
 .container {
   background: var(--white);
   width: 90%;
-  max-width: 450px;
-  padding: 60px 40px 40px 40px; /* Padding superior extra para el logo */
-  border-radius: 8px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  max-width: 420px;
+  padding: 70px 35px 35px 35px; /* Espacio para el logo arriba */
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
   position: relative;
-  border: 1px solid rgba(255,255,255,0.3);
+  box-sizing: border-box; /* Importante para que no se ensanche */
 }
 
-/* INSERTAR LOGO CIRCULAR (Sin tocar el HTML) */
+/* INSERTAR LOGO CIRCULAR FLOTANTE */
 .container::before {
   content: '';
   position: absolute;
-  top: -50px; /* Lo saca hacia arriba de la tarjeta */
+  top: -55px; /* Mitad del logo queda fuera */
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
-  background: var(--white) var(--logo-url) center/80% no-repeat;
+  width: 110px;
+  height: 110px;
+  /* Aplicamos el logo con fondo blanco circular */
+  background: var(--white) var(--logo-url) center/cover no-repeat;
   border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  border: 4px solid var(--white);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  border: 5px solid var(--white);
   z-index: 10;
 }
 
-/* Ocultar el H1 original del HTML para que no choque con el logo */
+/* Ajustes de textos internos */
 #view-login h1 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: var(--primary);
   text-align: center;
   text-transform: uppercase;
   font-weight: 900;
-  margin-bottom: 5px;
-  margin-top: 10px;
+  margin: 10px 0 5px 0;
 }
 
 #view-login p {
   text-align: center !important;
   color: #666;
   font-size: 0.9rem;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 /* ==================== FORMULARIO INTERNO ==================== */
@@ -81,72 +81,71 @@ label {
   font-size: 0.8rem;
   color: var(--primary);
   text-transform: uppercase;
+  margin-top: 15px;
   margin-bottom: 5px;
 }
 
-input {
+input, select {
   width: 100%;
   padding: 12px;
-  margin-bottom: 15px;
-  border: none;
-  border-bottom: 2px solid #ddd;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   background: #f9f9f9;
   font-size: 1rem;
+  box-sizing: border-box; /* Evita que el input se salga del cuadro */
   transition: all 0.3s ease;
 }
 
 input:focus {
   outline: none;
-  border-bottom-color: var(--primary);
+  border-color: var(--primary);
   background: #fff;
+  box-shadow: 0 0 0 3px rgba(35, 93, 58, 0.1);
 }
 
 small {
   display: block;
   color: #888;
   font-size: 0.75rem;
-  margin-bottom: 20px;
+  margin-top: 5px;
 }
 
 /* ==================== BOTÓN ==================== */
 button {
   width: 100%;
   padding: 15px;
+  margin-top: 25px;
   background: var(--primary);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
   letter-spacing: 1px;
 }
 
 button:hover {
   background: #1a452b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Ajustes para el link de admin */
+/* Ajustes adicionales */
 #view-login a {
   color: var(--primary);
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.8rem;
 }
 
-/* Elementos ocultos */
 .hidden { display: none !important; }
 
-/* Vista Admin y Tablas (Ajuste rápido) */
-#view-admin, #view-booking {
-  color: #333;
-}
+/* Tablas y Admin */
 table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-th { background: var(--primary); color: white; padding: 10px; }
-td { border-bottom: 1px solid #eee; padding: 10px; }
+th { background: var(--primary); color: white; padding: 12px; font-size: 0.8rem; }
+td { border-bottom: 1px solid #eee; padding: 10px; font-size: 0.9rem; }
 </style>
-  </style>
 </head>
 <body>
 
