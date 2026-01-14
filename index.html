@@ -154,7 +154,7 @@ td { border-bottom: 1px solid #eee; padding: 10px; }
 
   
   <div id="view-login">
-    <h1>Bienvenido al Club de Tenis</h1>
+    <h1>Reserva tu cancha de tenis Club Asturiano de Buenos Aires </h1>
     <p style="text-align:center;">Por favor, valide su identidad para reservar.</p>
     
     <label>Número de Socio</label>
@@ -353,7 +353,7 @@ td { border-bottom: 1px solid #eee; padding: 10px; }
     const selectHora = document.getElementById('reserva-hora');
     selectHora.innerHTML = "";
     // Horario 7 a 21 (el ultimo turno inicia a las 20 para terminar a las 21 si es 1h)
-    for(let i=7; i<=20; i++) { 
+    for(let i=7; i<=21; i++) { 
        let opt = document.createElement('option');
        opt.value = i;
        opt.text = i + ":00 hs";
